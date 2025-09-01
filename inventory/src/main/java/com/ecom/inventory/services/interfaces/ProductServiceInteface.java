@@ -1,9 +1,8 @@
 package com.ecom.inventory.services.interfaces;
 
 
-import com.ecom.inventory.dtos.ProductRequestDto;
-import com.ecom.inventory.dtos.ProductResponseDto;
-import com.ecom.inventory.entity.Product;
+import com.ecom.inventory.dtos.requestdto.ProductRequestDto;
+import com.ecom.inventory.dtos.responsedto.ProductResponseDto;
 
 import java.util.List;
 

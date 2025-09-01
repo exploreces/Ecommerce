@@ -1,4 +1,4 @@
-package com.ecom.inventory.dtos;
+package com.ecom.inventory.dtos.requestdto;
 
 
 import jakarta.validation.constraints.NotNull;

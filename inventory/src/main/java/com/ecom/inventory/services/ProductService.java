@@ -1,7 +1,7 @@
 package com.ecom.inventory.services;
 
-import com.ecom.inventory.dtos.ProductRequestDto;
-import com.ecom.inventory.dtos.ProductResponseDto;
+import com.ecom.inventory.dtos.requestdto.ProductRequestDto;
+import com.ecom.inventory.dtos.responsedto.ProductResponseDto;
 import com.ecom.inventory.entity.Product;
 import com.ecom.inventory.exceptions.AlreadyExistsException;
 import com.ecom.inventory.exceptions.NotFoundException;

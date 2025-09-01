@@ -1,6 +1,10 @@
 package com.ecom.inventory.services.interfaces;
 
-import com.ecom.inventory.dtos.*;
+import com.ecom.inventory.dtos.requestdto.CartItemRequestDto;
+import com.ecom.inventory.dtos.requestdto.CartItemUpdateRequestDto;
+import com.ecom.inventory.dtos.requestdto.CheckoutRequestDto;
+import com.ecom.inventory.dtos.responsedto.CartSummaryResponseDto;
+import com.ecom.inventory.dtos.responsedto.OrderResponseDto;
 
 import java.util.List;
 

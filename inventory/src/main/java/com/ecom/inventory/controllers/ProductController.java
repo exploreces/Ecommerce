@@ -1,8 +1,7 @@
 package com.ecom.inventory.controllers;
 
-import com.ecom.inventory.dtos.ProductRequestDto;
-import com.ecom.inventory.dtos.ProductResponseDto;
-import com.ecom.inventory.entity.Product;
+import com.ecom.inventory.dtos.requestdto.ProductRequestDto;
+import com.ecom.inventory.dtos.responsedto.ProductResponseDto;
 import com.ecom.inventory.services.interfaces.ProductServiceInteface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

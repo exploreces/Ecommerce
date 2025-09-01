@@ -1,4 +1,5 @@
-package com.ecom.inventory.dtos;
+package com.ecom.inventory.dtos.requestdto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductResponseDto {
-    private Long productId;
+public class ProductRequestDto {
     private String name;
     private Double cost;
     private String supplier;
     private String supplierLocation;
     private String specs;
-    private Double discount;       // percentage (e.g., 10 means 10%)
-    private Double effectivePrice; // cost after applying discount
+    private Integer count;
+    private Double discount; // optional at creation
 }
+

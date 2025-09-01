@@ -1,4 +1,4 @@
-package com.ecom.inventory.dtos;
+package com.ecom.inventory.dtos.responsedto;
 
 
 import lombok.*;
