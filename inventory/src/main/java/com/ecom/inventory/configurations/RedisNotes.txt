@@ -1,0 +1,45 @@
+Redis Configuration execution steps -
+    1. The Redis Configuration uses an abstraction factory  - LettuceConnectionFactory
+    2. Factory produces the RedisConnection which is injected where needed - in RedisTemplate
+    3. Redis Template is an abstraction layer just like JPA which is used to talk with Redis server , does get, set methods
+    4. RedisTemplate has StringRedisSerializer for serializing keys as string and Jackson2JsonRedisSerializer for Json Objects
+    5. Jackson2JsonRedisSerializer has its custom Object Mapper which is helping to serialize and deserialize.
+
+Redis Memory Life -
+    1. if we use same Redis port for 2 projects we are using same memory to cache both the projects data
+    2. Redis have 16 dbs, and we can configure that using
+        spring.redis.database=1
+
+
+Redis Lifecycle in Short (Bullet Points)
+    Start Redis Server:
+
+    Redis server starts and loads any persisted data (if RDB/AOF persistence is enabled).
+    It initializes in-memory data structures for speed.
+    Connection Establishment:
+
+    Applications connect to Redis via a Redis client (e.g., Lettuce, Jedis) using a connection factory.
+    Data Operations:
+
+    WRITE: Data is stored in-memory (keys and values serialized).
+    READ: Data is fetched from memory, deserialized, and sent back to the client.
+    DELETE: Data can be removed using Redis commands like DEL.
+    Optional Persistence:
+
+    RDB Snapshot: Redis saves in-memory data to disk at intervals through snapshotting.
+    AOF Logging: Each write operation is appended to a log file for more continuous persistence.
+    Cache Expiry:
+
+    Keys with an expiration (EXPIRE) are evicted from memory once the TTL (Time-to-Live) expires.
+    Redis actively evicts keys if memory limits are reached (according to eviction policy).
+    Data Sync (Replication):
+
+    Redis can sync data between master and slave nodes (if running in a replicated setup).
+    Server Shutdown:
+
+    On shutdown, Redis optionally persists all in-memory data to disk based on its configured persistence mechanism (RDB/AOF).
+    Any data not persisted is lost.
+    Restart:
+
+    When restarted, Redis loads persisted data back into memory (if persistence is enabled).
+    The server resumes from the last saved state.
