@@ -41,10 +41,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.applyDiscount(productId, discount));
     }
 
+
     @GetMapping
     public ResponseEntity<List<ProductResponseDto>> getAllProducts(
             @RequestParam(value="page" , defaultValue = "0")int page,
-            @RequestParam(value="size" , defaultValue = "10")int size)
+            @RequestParam(value="size" , defaultValue = "3")int size)
     {
         return ResponseEntity.ok(productService.getAllProducts(page , size));
     }

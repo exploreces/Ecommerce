@@ -16,6 +16,8 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class RedisConfiguration {
@@ -24,26 +26,41 @@ public class RedisConfiguration {
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
         // Configure ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule()); // Register JavaTimeModule for LocalDate
+        objectMapper.registerModule(new JavaTimeModule()); // JavaTimeModule for LocalDate, LocalDateTime support
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         objectMapper.activateDefaultTyping(
                 objectMapper.getPolymorphicTypeValidator(),
-                ObjectMapper.DefaultTyping.NON_FINAL // Enable default typing for all non-final classes
+                ObjectMapper.DefaultTyping.NON_FINAL // Enable default typing for non-final classes
         );
 
-        // Use ObjectMapper with GenericJackson2JsonRedisSerializer
+        // Serializer using ObjectMapper
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 
-        // Redis Cache Configuration
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(10)) // Set TTL
+        // Default Redis Cache Configuration
+        RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(10)) // Default TTL for all caches
                 .disableCachingNullValues()
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(serializer)
                 );
 
+        // Custom OTP Cache Configuration (e.g., 5-minute TTL for OTP)
+        RedisCacheConfiguration otpCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(1))
+                .disableCachingNullValues()
+                .serializeValuesWith(
+                        RedisSerializationContext.SerializationPair.fromSerializer(serializer)
+                );
+
+        // Define multiple cache configurations
+        Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
+        cacheConfigurations.put("otpCache", otpCacheConfig); // Custom TTL for OTP Cache
+        cacheConfigurations.put("defaultCache", defaultCacheConfig); // Generic Default Cache
+
+        // Build RedisCacheManager with specific caches
         return RedisCacheManager.builder(connectionFactory)
-                .cacheDefaults(config)
+                .withInitialCacheConfigurations(cacheConfigurations)  // Custom caches
+                .cacheDefaults(defaultCacheConfig)                    // Fallback cache
                 .build();
     }
 
@@ -52,7 +69,7 @@ public class RedisConfiguration {
      */
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        // Define the Redis Cluster configuration with cluster nodes
+        // Define Redis Cluster nodes
         RedisClusterConfiguration clusterConfiguration = new RedisClusterConfiguration(
                 Arrays.asList(
                         "127.0.0.1:7001",
@@ -63,9 +80,7 @@ public class RedisConfiguration {
                         "127.0.0.1:7006"
                 )
         );
-        // Create LettuceConnectionFactory for Redis Cluster
+        // Create LettuceConnectionFactory for Redis
         return new LettuceConnectionFactory(clusterConfiguration);
     }
-
-
 }

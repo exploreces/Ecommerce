@@ -11,10 +11,10 @@ import com.ecom.inventory.entity.Order;
 import com.ecom.inventory.entity.Product;
 import com.ecom.inventory.entity.User;
 import com.ecom.inventory.exceptions.InsufficientStockException;
+import com.ecom.inventory.exceptions.NotFoundException;
 import com.ecom.inventory.repositories.*;
 import com.ecom.inventory.services.interfaces.InventoryServiceInterface;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,7 +77,7 @@ public class InventoryService implements InventoryServiceInterface {
                 .filter(c -> c.getUser().getUserId().equals(user.getUserId())
                         && c.getProduct().getProductId().equals(product.getProductId()))
                 .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Cart item not found"));
+                .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
         line.setQuantity(request.getQuantity());
         cartRepository.save(line);
@@ -94,7 +94,7 @@ public class InventoryService implements InventoryServiceInterface {
                 .filter(c -> c.getUser().getUserId().equals(user.getUserId())
                         && c.getProduct().getProductId().equals(product.getProductId()))
                 .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Cart item not found"));
+                .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
         cartRepository.delete(line);
         return buildCartSummary(user.getUserId());
@@ -129,7 +129,7 @@ public class InventoryService implements InventoryServiceInterface {
                 .toList();
 
         if (cartItems.isEmpty()) {
-            throw new ResourceNotFoundException("Cart is empty");
+            throw new NotFoundException("Cart is empty");
         }
 
         List<Order> createdOrders = new ArrayList<>();
@@ -168,7 +168,7 @@ public class InventoryService implements InventoryServiceInterface {
     @Override
     public void cancelOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + orderId));
+                .orElseThrow(() -> new NotFoundException("Order not found with id: " + orderId));
 
         if (!"CANCELLED".equals(order.getStatus())) {
             order.setStatus("CANCELLED");
@@ -185,7 +185,7 @@ public class InventoryService implements InventoryServiceInterface {
     @Transactional(readOnly = true)
     public OrderResponseDto getOrderById(Long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + orderId));
+                .orElseThrow(() -> new NotFoundException("Order not found with id: " + orderId));
         return objectMapper.convertValue(order, OrderResponseDto.class);
     }
 
@@ -203,12 +203,12 @@ public class InventoryService implements InventoryServiceInterface {
 
     private User getUser(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + userId));
     }
 
     private Product getProduct(Long productId) {
         return productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
+                .orElseThrow(() -> new NotFoundException("Product not found with id: " + productId));
     }
 
     private double calcEffectivePrice(Product p) {

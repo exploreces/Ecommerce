@@ -65,7 +65,6 @@ public class ProductService implements ProductServiceInteface {
 
         existing.setName(updatedProduct.getName());
         existing.setCost(updatedProduct.getCost());
-        existing.setSupplier(updatedProduct.getSupplier());
         existing.setSupplierLocation(updatedProduct.getSupplierLocation());
         existing.setSpecs(updatedProduct.getSpecs());
         existing.setCount(updatedProduct.getCount());
