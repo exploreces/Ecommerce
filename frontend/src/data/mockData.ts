@@ -1,0 +1,141 @@
+import { Product, SellerProfile } from '../types';
+
+export const mockProducts: Product[] = [
+  {
+    id: '1',
+    name: 'Wireless Bluetooth Headphones',
+    description: 'Premium quality wireless headphones with noise cancellation and 30-hour battery life.',
+    price: 199.99,
+    originalPrice: 249.99,
+    images: [
+      'https://images.pexels.com/photos/3394654/pexels-photo-3394654.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=600'
+    ],
+    category: 'Electronics',
+    stock: 25,
+    sellerId: 'seller1',
+    sellerName: 'TechStore Pro',
+    rating: 4.8,
+    reviewCount: 124,
+    tags: ['wireless', 'bluetooth', 'noise-cancelling'],
+    createdAt: '2024-01-15T00:00:00Z',
+  },
+  {
+    id: '2',
+    name: 'Smart Fitness Watch',
+    description: 'Advanced fitness tracking with heart rate monitor, GPS, and water resistance.',
+    price: 299.99,
+    images: [
+      'https://images.pexels.com/photos/393047/pexels-photo-393047.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600'
+    ],
+    category: 'Wearables',
+    stock: 15,
+    sellerId: 'seller2',
+    sellerName: 'FitTech Solutions',
+    rating: 4.6,
+    reviewCount: 89,
+    tags: ['fitness', 'smartwatch', 'gps', 'waterproof'],
+    createdAt: '2024-01-10T00:00:00Z',
+  },
+  {
+    id: '3',
+    name: 'Organic Cotton T-Shirt',
+    description: 'Comfortable, sustainable organic cotton t-shirt in various colors and sizes.',
+    price: 29.99,
+    originalPrice: 39.99,
+    images: [
+      'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=600'
+    ],
+    category: 'Fashion',
+    stock: 50,
+    sellerId: 'seller3',
+    sellerName: 'EcoWear',
+    rating: 4.9,
+    reviewCount: 201,
+    tags: ['organic', 'cotton', 'sustainable', 'clothing'],
+    createdAt: '2024-01-12T00:00:00Z',
+  },
+  {
+    id: '4',
+    name: 'Professional Camera Lens',
+    description: '85mm f/1.4 prime lens perfect for portraits and professional photography.',
+    price: 899.99,
+    images: [
+      'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/386006/pexels-photo-386006.jpeg?auto=compress&cs=tinysrgb&w=600'
+    ],
+    category: 'Photography',
+    stock: 8,
+    sellerId: 'seller1',
+    sellerName: 'TechStore Pro',
+    rating: 4.7,
+    reviewCount: 45,
+    tags: ['camera', 'lens', 'photography', 'professional'],
+    createdAt: '2024-01-08T00:00:00Z',
+  },
+  {
+    id: '5',
+    name: 'Ceramic Coffee Mug Set',
+    description: 'Handcrafted ceramic mugs perfect for your morning coffee. Set of 4.',
+    price: 49.99,
+    images: [
+      'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/1251175/pexels-photo-1251175.jpeg?auto=compress&cs=tinysrgb&w=600'
+    ],
+    category: 'Home & Kitchen',
+    stock: 30,
+    sellerId: 'seller4',
+    sellerName: 'Artisan Crafts',
+    rating: 4.5,
+    reviewCount: 67,
+    tags: ['ceramic', 'coffee', 'handmade', 'kitchen'],
+    createdAt: '2024-01-14T00:00:00Z',
+  },
+  {
+    id: '6',
+    name: 'Yoga Mat Premium',
+    description: 'Non-slip, eco-friendly yoga mat with excellent grip and cushioning.',
+    price: 79.99,
+    images: [
+      'https://images.pexels.com/photos/3822906/pexels-photo-3822906.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg?auto=compress&cs=tinysrgb&w=600'
+    ],
+    category: 'Sports & Fitness',
+    stock: 20,
+    sellerId: 'seller2',
+    sellerName: 'FitTech Solutions',
+    rating: 4.8,
+    reviewCount: 156,
+    tags: ['yoga', 'fitness', 'non-slip', 'eco-friendly'],
+    createdAt: '2024-01-11T00:00:00Z',
+  },
+];
+
+export const mockSellerProfiles: SellerProfile[] = [
+  {
+    id: 'seller1',
+    userId: 'seller1',
+    businessName: 'TechStore Pro',
+    description: 'Premium electronics and gadgets for tech enthusiasts.',
+    avatar: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+    banner: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800&h=200&fit=crop',
+    rating: 4.7,
+    totalSales: 1250,
+    productsCount: 45,
+    joinedAt: '2023-06-15T00:00:00Z',
+  },
+  {
+    id: 'seller2',
+    userId: 'seller2',
+    businessName: 'FitTech Solutions',
+    description: 'Your one-stop shop for fitness and wellness products.',
+    avatar: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+    banner: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800&h=200&fit=crop',
+    rating: 4.6,
+    totalSales: 890,
+    productsCount: 32,
+    joinedAt: '2023-08-22T00:00:00Z',
+  },
+];
