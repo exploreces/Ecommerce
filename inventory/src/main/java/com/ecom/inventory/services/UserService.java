@@ -49,20 +49,16 @@ public class UserService implements UserServiceInterface {
         // Remove leading/trailing whitespace
         String email = useremail.trim();
 
-        // Log the sanitized email to debug
         System.out.println("Sanitized email: '" + email + "'");
 
-        // Validate email format
         if (!isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email format: " + email);
         }
-
-        // Check if the email already exists in the database
         userRepository.findByEmail(email).ifPresent(u -> {
             throw new AlreadyExistsException("User already exists with email: " + email);
         });
 
-        // Generate and send OTP
+
         System.out.println("otp going to generate");
         String otp = generateOTP(email);
         System.out.println("sending email");
@@ -70,12 +66,9 @@ public class UserService implements UserServiceInterface {
         return otp;
     }
 
-    // Helper method to validate email pattern
     private boolean isValidEmail(String email) {
         return email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
     }
-
-
 
 
     public User signin(String email, String password) {
@@ -127,7 +120,6 @@ public class UserService implements UserServiceInterface {
 
             System.out.println("mail is set now");
 
-            // Set the recipient email
             helper.setTo(email);
             System.out.println("1 - Set recipient to: " + email);
 
@@ -135,9 +127,8 @@ public class UserService implements UserServiceInterface {
             helper.setText("Your OTP code is: " + otp + "\n\nThis OTP is valid for " + OTP_EXPIRATION_MINUTES + " minutes.");
 
             System.out.println("mail sending now");
-
-            // Send the email
             mailSender.send(message);
+
             System.out.println("Mail sent successfully to: " + email);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: Invalid email provided: " + email);

@@ -46,7 +46,7 @@ public class RedisConfiguration {
 
         // Custom OTP Cache Configuration (e.g., 5-minute TTL for OTP)
         RedisCacheConfiguration otpCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(1))
+                .entryTtl(Duration.ofMinutes(5))
                 .disableCachingNullValues()
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(serializer)
@@ -62,25 +62,5 @@ public class RedisConfiguration {
                 .withInitialCacheConfigurations(cacheConfigurations)  // Custom caches
                 .cacheDefaults(defaultCacheConfig)                    // Fallback cache
                 .build();
-    }
-
-    /**
-     * Configure RedisConnectionFactory to work with a Redis Cluster.
-     */
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
-        // Define Redis Cluster nodes
-        RedisClusterConfiguration clusterConfiguration = new RedisClusterConfiguration(
-                Arrays.asList(
-                        "127.0.0.1:7001",
-                        "127.0.0.1:7002",
-                        "127.0.0.1:7003",
-                        "127.0.0.1:7004",
-                        "127.0.0.1:7005",
-                        "127.0.0.1:7006"
-                )
-        );
-        // Create LettuceConnectionFactory for Redis
-        return new LettuceConnectionFactory(clusterConfiguration);
     }
 }
