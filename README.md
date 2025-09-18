@@ -100,3 +100,4 @@ From the project’s root directory, run:
 
 The backend will now be available at:
 http://localhost:8080
+The Api Info - http://localhost:8080/swagger-ui/index.html
