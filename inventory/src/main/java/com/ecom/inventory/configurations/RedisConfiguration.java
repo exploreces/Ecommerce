@@ -44,9 +44,9 @@ public class RedisConfiguration {
                         RedisSerializationContext.SerializationPair.fromSerializer(serializer)
                 );
 
-        // Custom OTP Cache Configuration (e.g., 5-minute TTL for OTP)
+        // Custom OTP Cache Configuration (e.g., 10-minute TTL for OTP)
         RedisCacheConfiguration otpCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(5))
+                .entryTtl(Duration.ofMinutes(10))
                 .disableCachingNullValues()
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(serializer)

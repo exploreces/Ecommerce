@@ -1,5 +1,6 @@
 package com.ecom.inventory.services;
 
+import com.ecom.inventory.dtos.requestdto.PasswordDto;
 import com.ecom.inventory.dtos.requestdto.SignUpRequestDto;
 import com.ecom.inventory.dtos.requestdto.UserProfileUpdateDto;
 import com.ecom.inventory.entity.User;
@@ -14,12 +15,15 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +34,7 @@ public class UserService implements UserServiceInterface {
     private JavaMailSender mailSender;
     private ObjectMapper objectMapper;
 
-    private static final int OTP_EXPIRATION_MINUTES = 5;
+    private static final int OTP_EXPIRATION_MINUTES = 10;
 
 
     @Override
@@ -89,9 +93,23 @@ public class UserService implements UserServiceInterface {
                 .orElseThrow(() -> new NotFoundException("User not found with ID: " + userId));
 
         user.setName(updatedUser.getName());
-        user.setPassword(updatedUser.getPassword());
         user.setAddress(updatedUser.getAddress());
 
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User getProfile(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User with this Id doesn't exist"));
+
+    }
+
+    @Override
+    public User updatePassword(String email, PasswordDto password) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found with email: " + email));
+
+        user.setPassword(password.getPassword());
         return userRepository.save(user);
     }
 

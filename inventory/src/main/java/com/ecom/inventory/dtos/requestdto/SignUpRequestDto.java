@@ -19,6 +19,8 @@ public class SignUpRequestDto {
     private String password;
     private String address;
 
+    private String type;
+
     @Min(6) @Max(6)
     private String otp;
 }
