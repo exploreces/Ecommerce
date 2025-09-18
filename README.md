@@ -67,6 +67,7 @@ Update application.properties or application.yml with your DB credentials:
 ```
 
 4. Configure Redis
+5. Add Email Credentials in Environment variables so that sending email would be possible
 
 ### 🛠 Running Redis on WSL (for Windows Users)
 1. Install Redis
