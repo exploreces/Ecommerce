@@ -1,6 +1,6 @@
 # 🛒 Spring Boot Project: E-Commerce Backend Application
 
-This is a **Spring Boot (Java)** based backend project designed to support an **E-Commerce website**.
+This is a **Spring Boot (Java)** based backend project designed as an **E-Commerce website**.
 
 ---
 
